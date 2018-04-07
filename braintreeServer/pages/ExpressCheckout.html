@@ -5,6 +5,7 @@
     <title>Winson DEMO</title>
     <link rel="stylesheet" href="/stylesheets/app.css">
     <link rel="stylesheet" href="/stylesheets/overrides.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <script src="https://js.braintreegateway.com/web/3.11.0/js/client.min.js"></script>
     <script src="https://js.braintreegateway.com/web/3.11.0/js/paypal-checkout.min.js"></script>
@@ -33,15 +34,66 @@
                 </header>
                 <form id="payment-form" action="/checkout" method="post">
                     <section>
-                        <label for="amount"><span class="input-label">Amount</span>
-                            <div class="input-wrapper amount-wrapper">
-                                <input id="amount" name="amount" type="tel" min="1" value="10">
+                    <div class="card-deck mb-3 text-center">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Basic</h4>
                             </div>
-                        </label>
-                        <div class="bt-drop-in-wrapper">
-                            <div id="bt-dropin"></div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">$5 <small class="text-muted">/ mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>10 users included</li>
+                                    <li>2 GB of storage</li>
+                                    <li>Email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <!--<button type="button" class="btn btn-lg btn-block btn-primary">Add now</button>-->
+                            </div>
+                        </div>
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Pro</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>20 users included</li>
+                                    <li>10 GB of storage</li>
+                                    <li>Priority email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <!--<button type="button" class="btn btn-lg btn-block btn-primary">Add now</button>-->
+                            </div>
+                        </div>
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">Enterprise</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">$29 <small class="text-muted">/ mo</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>30 users included</li>
+                                    <li>15 GB of storage</li>
+                                    <li>Phone and email support</li>
+                                    <li>Help center access</li>
+                                </ul>
+                                <!--<button type="button" class="btn btn-lg btn-block btn-primary">Add now</button>-->
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Amount</span>
+                                <span class="input-group-text">$</span>
+                                <input id="amount"  class="form-control" placeholder="" aria-label=""  name="amount" readonly="readonly" type="text" min="1" value="5">
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01">
+                                <option value="5" selected>Basic</option>
+                                <option value="15">Pro</option>
+                                <option value="29">Enterprise</option>
+                            </select>
                         </div>
                         <div id="paypal-button-container"></div>
+                    </div>
                     </section>
                     <input id="nonce" type="hidden" name="paymentMethodNonce">
                     <button type="submit" class="button"><span>Proceed</span></button>
@@ -50,13 +102,6 @@
         </div>
     </div>
     <script>
-        $.ajax({
-          type: 'GET',
-          url: '/checkout/client_token'
-        }).done(function(req){
-            renderButton(req);
-        });
-
         function renderButton(token) {
             // Render the PayPal button
             paypal.Button.render({
@@ -106,5 +151,19 @@
                 }
             }, '#paypal-button-container');
         }
+
+        $(document).ready(function(){
+            $('#inputGroupSelect01').on('change', function () {
+                var option = $(this).val();
+                $('#amount').val(option); 
+            });
+
+            $.ajax({
+            type: 'GET',
+            url: '/checkout/client_token'
+            }).done(function(req){
+                renderButton(req);
+            });
+        })
     </script>
 </body>
