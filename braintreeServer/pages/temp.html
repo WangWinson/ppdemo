@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BraintreeExpressExample</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/stylesheets/app.css">
+    <link rel="stylesheet" href="/stylesheets/overrides.css">
+</head>
+
+<body>
+    <header class="main">
+        <div class="container wide">
+            <div class="content slim">
+                <div class="set">
+                    <div class="fill"><a href="/" class="pseudoshop">PSEUDO <strong>SHOP</strong></a></div>
+                    <div class="fit"><a href="https://developers.braintreepayments.com/guides/drop-in" target="_blank" class="braintree">Braintree</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="notice-wrapper"></div>
+    </header>
+    <div class="wrapper">
+        <div class="checkout container">
+            <div class="content">
+                <header>
+                    <h1>Hello world! <br> Winson's Demo for Braintree with Express Checkout</h1>
+                </header>
+                <form id="payment-form" action="/checkouts" method="post">
+                    <section>
+                        <label for="amount"><span class="input-label">Amount</span>
+                            <div class="input-wrapper amount-wrapper">
+                                <input id="amount" name="amount" type="tel" min="1" value="10">
+                            </div>
+                        </label>
+                        <div class="bt-drop-in-wrapper">
+                            <div id="bt-dropin"></div>
+                        </div>
+                    </section>
+                    <input id="nonce" type="hidden" name="paymentMethodNonce">
+                    <button type="submit" class="button"><span>Proceed</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
+    <script>
+        var form = document.querySelector('#payment-form');
+        var token = 'eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiI4YTQ0NzQ1YzE5OTFlZWE5NDU2YzEwZGVkOTAzNjcyMmQyMWM0ODY1NDM3OTQ1NjQ5ZDJkMWYxMDQ4ZmU0ODBlfGNyZWF0ZWRfYXQ9MjAxOC0wNC0wN1QxMzoxNDoxMy41NjUwNzU0MzIrMDAwMFx1MDAyNm1lcmNoYW50X2lkPWh3MmI1aHhxd3B3Njg2OWNcdTAwMjZwdWJsaWNfa2V5PWRrdzl6dzJ2aDd5engycHkiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvaHcyYjVoeHF3cHc2ODY5Yy9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL2h3MmI1aHhxd3B3Njg2OWMvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tL2h3MmI1aHhxd3B3Njg2OWMifSwidGhyZWVEU2VjdXJlRW5hYmxlZCI6dHJ1ZSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiTVNGVCIsImNsaWVudElkIjoiQVhJX3NiQnVGWXh6VzBleEFpOU1HOXFYamgyY0RBYmxFMFFJV0h6ZDlqMWdfY2NqVU5oSEpIdzNOSTlQbm82c0RNRGw1NEZfTzk1NzNWN1YiLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjpmYWxzZSwiZW52aXJvbm1lbnQiOiJvZmZsaW5lIiwidW52ZXR0ZWRNZXJjaGFudCI6ZmFsc2UsImJyYWludHJlZUNsaWVudElkIjoibWFzdGVyY2xpZW50MyIsImJpbGxpbmdBZ3JlZW1lbnRzRW5hYmxlZCI6dHJ1ZSwibWVyY2hhbnRBY2NvdW50SWQiOiJtc2Z0IiwiY3VycmVuY3lJc29Db2RlIjoiVVNEIn0sIm1lcmNoYW50SWQiOiJodzJiNWh4cXdwdzY4NjljIiwidmVubW8iOiJvZmYifQ==';
+
+        braintree.dropin.create({
+            authorization: token,
+            container: '#bt-dropin',
+            paypal: {
+                flow: 'vault'
+            }
+        }, function(createErr, instance) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                instance.requestPaymentMethod(function(err, payload) {
+                    if (err) {
+                        console.log('Error', err);
+                        return;
+                    }
+
+                    // Add the nonce to the form and submit
+                    document.querySelector('#nonce').value = payload.nonce;
+                    form.submit();
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript" src="/javascript/demo.js"></script>
+</body>
+
+</html>
