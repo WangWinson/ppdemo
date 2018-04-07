@@ -1,32 +1,12 @@
 <!DOCTYPE html>
+<html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Winson DEMO</title>
-    <link rel="stylesheet" href="/stylesheets/app.css">
-    <link rel="stylesheet" href="/stylesheets/overrides.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-    <script src="https://js.braintreegateway.com/web/3.11.0/js/client.min.js"></script>
-    <script src="https://js.braintreegateway.com/web/3.11.0/js/paypal-checkout.min.js"></script>
-    <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
-
 <body>
-<body>
-    <header class="main">
-        <div class="container wide">
-            <div class="content slim">
-                <div class="set">
-                    <div class="fill"><a href="/" class="pseudoshop">DEMO <strong>SHOP</strong></a></div>
-                    <div class="fit"><a href="https://developers.braintreepayments.com/guides/drop-in" target="_blank" class="braintree">Braintree</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="notice-wrapper"></div>
-    </header>
     <div class="wrapper">
         <div class="checkout container">
             <div class="content">
@@ -121,6 +101,12 @@
             </div>
         </div>
     </div>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.11.0/js/client.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/3.11.0/js/paypal-checkout.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
         function renderButton(token) {
             // Render the PayPal button
@@ -210,3 +196,4 @@
         })
     </script>
 </body>
+</html>
