@@ -12,10 +12,12 @@ var gateway = braintree.connect({
 
 router.post('/', function(req, res, next) {
   // Use the payment method nonce here
+  console.log(req.body);
   var nonceFromTheClient = req.body.paymentMethodNonce;
+  var amountTotal = req.body.amount;
   // Create a new transaction for $10
   var newTransaction = gateway.transaction.sale({
-    amount: '10.00',
+    amount: amountTotal,
     paymentMethodNonce: nonceFromTheClient,
     options: {
       // This option requests the funds from the transaction
