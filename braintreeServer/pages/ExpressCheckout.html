@@ -127,6 +127,12 @@
             paypal.Button.render({
                 // Pass in the Braintree SDK
                 braintree: braintree,
+                style: {
+                    label: 'checkout',  // checkout | credit | pay | buynow | generic
+                    size:  'responsive', // small | medium | large | responsive
+                    shape: 'pill',   // pill | rect
+                    color: 'blue'   // gold | blue | silver | black
+                },
                 // Pass in your Braintree authorization key
                 client: {
                     sandbox: token,
@@ -137,12 +143,11 @@
                 // Wait for the PayPal button to be clicked
                 payment: function(data, actions) {
                     // Make a call to create the payment
-                    var amount = $('#amount').val();
                     return actions.payment.create({
                         payment: {
                             transactions: [
                                 {
-                                    amount: { total: amount.toFixed(2), currency: 'USD' }
+                                    amount: { total: getAmount(), currency: 'USD' }
                                 }
                             ]
                         }
@@ -152,7 +157,6 @@
                 onAuthorize: function(data, actions) {
                     // Call your server with data.nonce to finalize the payment
                     var nonce = data.nonce;
-                    var amount = $('#amount').val();
                     console.log('Braintree nonce:', nonce);
                     // Get the payment and buyer details
                     return actions.payment.get().then(function(payment) {
@@ -164,7 +168,7 @@
                             data: {
                                 paymentMethodNonce: nonce,
                                 paymentDetail: payment,
-                                totalAmount: amount.toFixed()
+                                totalAmount: getAmount()
                             }
                         }).done(function(res) {
                             console.log(res);
@@ -181,6 +185,11 @@
             var payinfo = info;
             $('#modalBody').html(info);
             $('#exampleModal').modal('show');
+        }
+
+        function getAmount() {
+            var amount = $('#amount').val();
+            return amount + '.00';
         }
 
         $(document).ready(function(){
