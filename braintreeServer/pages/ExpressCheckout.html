@@ -46,10 +46,23 @@
                 // Wait for the payment to be authorized by the customer
                 onAuthorize: function(data, actions) {
                     // Call your server with data.nonce to finalize the payment
-                    console.log('Braintree nonce:', data.nonce);
+                    var nonce = data.nonce;
+                    console.log('Braintree nonce:', nonce);
                     // Get the payment and buyer details
                     return actions.payment.get().then(function(payment) {
                         console.log('Payment details:', payment);
+                        //send to checkout for transaction payment
+                        $.ajax({
+                            method: 'POST',
+                            url: '/checkout',
+                            data: {
+                                paymentMethodNonce: nonce,
+                                paymentDetail: payment,
+                                totalAmount: '8.8'
+                            }
+                        }).done(function(res) {
+                            console.log(res);
+                        });
                     });
                 }
             }, '#paypal-button-container');
