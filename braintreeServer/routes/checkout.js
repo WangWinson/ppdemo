@@ -2,15 +2,15 @@ var express = require('express');
 var router = express.Router();
 var braintree = require('braintree');
 
-router.post('/', function(req, res, next) {
-  var gateway = braintree.connect({
+var gateway = braintree.connect({
     environment: braintree.Environment.Sandbox,
     //NOTE: these id and keys are from Braintree Sandbox API Keys
     merchantId: 'hw2b5hxqwpw6869c',
     publicKey: 'dkw9zw2vh7yzx2py',
     privateKey: '4540334b77e1c39f26d5c06afd12935b'
-  });
+});
 
+router.post('/', function(req, res, next) {
   // Use the payment method nonce here
   var nonceFromTheClient = req.body.paymentMethodNonce;
   // Create a new transaction for $10
@@ -28,6 +28,13 @@ router.post('/', function(req, res, next) {
       } else {
         res.status(500).send(error);
       }
+  });
+});
+
+//generate client token
+router.get("/client_token", function (req, res, next) {
+    gateway.clientToken.generate({}, function (err, response) {
+    res.send(response.clientToken);
   });
 });
 
