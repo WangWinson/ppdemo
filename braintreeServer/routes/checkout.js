@@ -26,7 +26,8 @@ router.post('/', function(req, res, next) {
     }
   }, function(error, result) {
       if (result) {
-        res.send(result);
+        res.render('transInfo', {tran: result.transaction});
+        // res.send(result);
       } else {
         res.status(500).send(error);
       }
