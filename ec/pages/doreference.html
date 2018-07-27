@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js'></script>
+</head>
+<body>
+    <div>
+        <form id="doref" action="/nvp/doref" method="POST">
+            <label for="amount">amount:</label>
+            <input name="amount" type="number" value="10" />
+            <!-- <input id="refid" name="referenceid" type="hidden" value="" /> -->
+            <input type="submit" value="Do Reference Transaction" />
+        </form>
+    </div>
+    <script>
+        $('document').ready(function() {
+            $('#doref').attr('action', '/nvp/doref' + window.location.search);
+        });
+    </script>
+</body>
+</html>

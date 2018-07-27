@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js'></script>
+</head>
+<body>
+    <div>
+        <form action="/nvp/setec" method="POST">
+            <label for="amount">amount:</label>
+            <input name="amount" type="number" value="10" />
+            <lable for="onetime">one time:</lable>
+            <input id="onetime" name="paytype" type="radio" value="onetime" />
+            <lable for="recurring">recurring:</lable>
+            <input id="recurring" name="paytype" type="radio" value="recurring" />
+            <lable for="reference">reference:</lable>
+            <input id="reference" name="paytype" type="radio" value="reference" />
+            <!-- <input type="button" value="setEC" onclick="setEC();"/> -->
+            <input type="submit" value="Set Express Check" />
+        </form>
+    </div>
+    <!-- <script>
+        function setEC(){
+            $.ajax({
+                url:'./nvp/setec',
+                type:'POST',
+                success:function(res) {
+                    console.log(res);
+                }
+            })
+        }
+    </script> -->
+</body>
+</html>
