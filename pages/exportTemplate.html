@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- <script src="https://raw.githubusercontent.com/eligrey/FileSaver.js/master/dist/FileSaver.js"></script> -->
+        <script src="FileSaver.js"></script>
+    </head>
+    <body>
+        <input id="file1" type="file" />
+        <textarea id="text1" cols="50" rows="20"></textarea>
+        <input id="exportBtn" type="button" value="export"/>
+        <script type="text/javascript">
+            var testJson = {
+                name: "test1",
+                content: "Dear Merchant,\nThank you for reaching out to MTS"
+            };
+            // localStorage["temp1"] = JSON.stringify(testJson);
+            // var blob = new Blob([localStorage.temp1], {type: "text/plain;charset=utf-8"});
+            // saveAs(blob, "helloJson.json");
+            var textArea = document.getElementById("text1");
+            
+            var expBtn = document.getElementById("exportBtn");
+            expBtn.addEventListener("click", function () {
+                console.log(textArea.value);
+                testJson.content = textArea.value;
+                var blob = new Blob([JSON.stringify(testJson)], {type: "text/plain;charset=utf-8"});
+                saveAs(blob, "emailTemp1.json");
+            });
+
+            var input  = document.getElementById("file1"); //input file
+            input.onchange = function(){
+                var file = this.files[0];
+                if(!!file){
+                    var reader = new FileReader();
+                    reader.readAsText(file,"gbk");
+                    reader.onload = function(){
+                        console.log(this.result);
+                        var c = JSON.parse(this.result);
+                        textArea.value = !!c ? (!!c.content ? c.content : c) : "";
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
