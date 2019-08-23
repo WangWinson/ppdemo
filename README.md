@@ -17,3 +17,5 @@ $ npm start
 [Braintree](https://developers.braintreepayments.com/start/tutorial)
 
 [link Paypal and Braintree sandbox account](https://developers.braintreepayments.com/guides/paypal/testing-go-live/node#linked-paypal-testing)
+
+[test wechat](weixin://scanqrcode)
